@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Verified Successfully</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 600px;
+            width: 90%;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .header {
+            background: linear-gradient(135deg, #3498db, #2ecc71);
+            padding: 30px;
+            color: white;
+        }
+        h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+        p {
+            color: #34495e;
+            margin-bottom: 25px;
+            line-height: 1.6;
+            font-size: 18px;
+        }
+        .content {
+            padding: 40px;
+        }
+        .success-icon {
+            margin: 0 auto 30px;
+        }
+        .btn {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            text-decoration: none;
+            padding: 16px 40px;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+            margin: 30px 0;
+        }
+        .footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #f1f1f1;
+            color: #95a5a6;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Email Verified Successfully!</h1>
+            <p>Your account is now verified</p>
+        </div>
+        
+        <div class="content">
+            <div class="success-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#2ecc71" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+            </div>
+            
+            <p>You can now login to your account and start using our services.</p>
+            
+            <a href="/login" class="btn">Login Now</a>
+        </div>
+        
+        <div class="footer">
+            <p>© Daycare ${new Date().getFullYear()}. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>
+        .btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+        }
+        
+        .success-message {
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+        
+        .features {
+            text-align: left;
+            max-width: 400px;
+            margin: 0 auto 30px;
+        }
+        
+        .feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .feature-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            background: #2ecc71;
+            color: white;
+            border-radius: 50%;
+            margin-right: 15px;
+            font-size: 14px;
+        }
+        footer {
+            margin-top: 40px;
+            color: #95a5a6;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="success-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#2ecc71" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+        </div>
+        <h1>Email Verified Successfully!</h1>
+        <p class="success-message">Thank you for verifying your email address. Your account is now fully activated!</p>
+        <div class="features">
+            <div class="feature">
+                <span class="feature-icon">✓</span>
+                <span>Access all daycare features</span>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">✓</span>
+                <span>Manage your child's profile</span>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">✓</span>
+                <span>View schedules and updates</span>
+            </div>
+        </div>
+        <a href="/dashboard" class="btn">Continue to Dashboard</a>
+        <footer>
+            <p>© <span id="year"></span> Daycare. All rights reserved.</p>
+        </footer>
+    </div>
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

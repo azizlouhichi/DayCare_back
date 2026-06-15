@@ -1,0 +1,962 @@
+
+> backend-daycare@1.0.0 start
+> node index.js
+
+(node:25324) Warning: Accessing non-existent property 'io' of module exports inside circular dependency
+(Use `node --trace-warnings ...` to show where the warning was created)
+MongoDB connected successfully
+Default categories already exist. Skipping category seeding.
+Server is running on port 8000
+User 6a01a514201aec644fceca98 logged in successfully
+Attempting socket connection for user 6a01a514201aec644fceca98
+Socket.io instance obtained: success
+Socket event emitted for user 6a01a514201aec644fceca98
+Authenticated user: utilisateur (6a01a514201aec644fceca98)
+Finding user with ID: 6a01a514201aec644fceca98
+Authenticated user: utilisateur (6a01a514201aec644fceca98)
+Finding user with ID: 6a01a514201aec644fceca98
+User reservations before populate: []
+User reservations before populate: []
+User reservations after populate: []
+User reservations after populate: []
+Authenticated user: utilisateur (6a01a514201aec644fceca98)
+Erreur lors de la récupération des catégories populaires: TypeError: Class constructor ObjectId cannot be invoked without 'new'
+    at getUserTopCategories (C:\Users\azizl\gkid\home_services_back\routes\recommendation.js:19:42)
+    at C:\Users\azizl\gkid\home_services_back\routes\recommendation.js:114:31
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+✅  New socket connected: zqj5TGG_6ny_fnI7AAAB
+New client connected:  zqj5TGG_6ny_fnI7AAAB
+Authenticated user: utilisateur (6a01a514201aec644fceca98)
+Socket zqj5TGG_6ny_fnI7AAAB joined user_6a01a514201aec644fceca98
+Authenticated user: utilisateur (6a01a514201aec644fceca98)
+Authenticated user: utilisateur (6a01a514201aec644fceca98)
+Socket zqj5TGG_6ny_fnI7AAAB joined user_users
+Socket zqj5TGG_6ny_fnI7AAAB joined user_notifications_6a01a514201aec644fceca98
+Authenticated user: utilisateur (6a01a514201aec644fceca98)
+Authenticated user: utilisateur (6a01a514201aec644fceca98)
+Authenticated user: utilisateur (6a01a514201aec644fceca98)
+User verified: 6a01a514201aec644fceca98
+Filter criteria: {
+  subCategory: '69fc8c3f727d11d3616da5c4',
+  availability: 'available',
+  price: { '$gte': 0, '$lte': 1000 }
+}
+Sort criteria: { createdAt: -1 }
+Found 1 services matching criteria
+Authenticated user: utilisateur (6a01a514201aec644fceca98)
+Authenticated user: utilisateur (6a01a514201aec644fceca98)
+Authenticated user: utilisateur (6a01a514201aec644fceca98)
+User verified: 6a01a514201aec644fceca98
+User notification: {
+  recipient: new ObjectId('6a01a514201aec644fceca98'),
+  recipientType: 'User',
+  type: 'RESERVATION_CREATED',
+  title: 'Reservation Created',
+  message: 'You have created a new  reservation for hfvn',
+  data: { reservationId: new ObjectId('6a24362b16a681e1f11becf6') },
+  read: false,
+  priority: 'medium',
+  _id: new ObjectId('6a24362b16a681e1f11becf9'),
+  createdAt: 2026-06-06T15:00:59.190Z,
+  updatedAt: 2026-06-06T15:00:59.190Z,
+  __v: 0
+}
+Prestataire notification: {
+  recipient: new ObjectId('6a01a8d4201aec644fcecaa2'),
+  recipientType: 'Prestataire',
+  type: 'NEW_RESERVATION',
+  title: 'New Reservation',
+  message: 'You have a new reservation for hfvn',
+  data: { reservationId: new ObjectId('6a24362b16a681e1f11becf6') },
+  read: false,
+  priority: 'medium',
+  _id: new ObjectId('6a24362b16a681e1f11becfa'),
+  createdAt: 2026-06-06T15:00:59.193Z,
+  updatedAt: 2026-06-06T15:00:59.193Z,
+  __v: 0
+}
+Authenticated user: utilisateur (6a01a514201aec644fceca98)
+Authenticated user: utilisateur (6a01a514201aec644fceca98)
+Authenticated user: utilisateur (6a01a514201aec644fceca98)
+Connecting prestataire 6a01a8d4201aec644fcecaa2 to socket room
+Socket.io instance obtained: success
+Socket event 'prestataireLoggedIn' emitted for prestataire 6a01a8d4201aec644fcecaa2
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Finding user with ID: 6a01a8d4201aec644fcecaa2
+🔌  User 6a01a514201aec644fceca98 disconnected
+User zqj5TGG_6ny_fnI7AAAB disconnected
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+✅  New socket connected: qPITW4u4BzWLkhg_AAAD
+New client connected:  qPITW4u4BzWLkhg_AAAD
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Socket qPITW4u4BzWLkhg_AAAD joined user_6a01a8d4201aec644fcecaa2
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Socket qPITW4u4BzWLkhg_AAAD joined user_providers
+Socket qPITW4u4BzWLkhg_AAAD joined user_notifications_6a01a8d4201aec644fcecaa2
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Provider verified: 6a01a8d4201aec644fcecaa2
+User notification: {
+  recipient: new ObjectId('6a01a514201aec644fceca98'),
+  recipientType: 'User',
+  type: 'RESERVATION_CONFIRMED',
+  title: 'Reservation Confirmed',
+  message: 'Your reservation for hfvn has been confirmed',
+  data: { reservationId: new ObjectId('6a24362b16a681e1f11becf6') },
+  read: false,
+  priority: 'medium',
+  _id: new ObjectId('6a24366f16a681e1f11bed35'),
+  createdAt: 2026-06-06T15:02:07.860Z,
+  updatedAt: 2026-06-06T15:02:07.860Z,
+  __v: 0
+}
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Provider verified: 6a01a8d4201aec644fcecaa2
+User 6a01a514201aec644fceca98 logged in successfully
+Attempting socket connection for user 6a01a514201aec644fceca98
+Socket.io instance obtained: success
+Socket event emitted for user 6a01a514201aec644fceca98
+Authenticated user: utilisateur (6a01a514201aec644fceca98)
+Finding user with ID: 6a01a514201aec644fceca98
+User reservations before populate: [ new ObjectId('6a24362b16a681e1f11becf6') ]
+User reservations after populate: [
+  {
+    _id: new ObjectId('6a24362b16a681e1f11becf6'),
+    userId: new ObjectId('6a01a514201aec644fceca98'),
+    serviceId: {
+      _id: new ObjectId('6a0f921ff017af66fbca2bc9'),
+      name: 'hfvn',
+      description: '5tecb',
+      price: 5
+    },
+    serviceName: 'hfvn',
+    prestataireId: {
+      _id: new ObjectId('6a01a8d4201aec644fcecaa2'),
+      nom: 'aziz',
+      prenom: 'lou',
+      email: 'azizlouhichi62@gmail.com',
+      telephone: '21655122728'
+    },
+    reservationDateTime: 2026-06-10T01:00:00.000Z,
+    status: 'confirmé',
+    description: 'good ',
+    adresse: 'dfhj',
+    price: 5,
+    images: [
+      'https://res.cloudinary.com/dkkqrkj4a/image/upload/v1780758059/daycare-app/cbryfwtervf4ahkonfzc.jpg'
+    ],
+    paymentStatus: 'non facturé',
+    additionalServices: [],
+    createdAt: 2026-06-06T15:00:59.174Z,
+    __v: 0
+  }
+]
+Authenticated user: utilisateur (6a01a514201aec644fceca98)
+Finding user with ID: 6a01a514201aec644fceca98
+User reservations before populate: [ new ObjectId('6a24362b16a681e1f11becf6') ]
+User reservations after populate: [
+  {
+    _id: new ObjectId('6a24362b16a681e1f11becf6'),
+    userId: new ObjectId('6a01a514201aec644fceca98'),
+    serviceId: {
+      _id: new ObjectId('6a0f921ff017af66fbca2bc9'),
+      name: 'hfvn',
+      description: '5tecb',
+      price: 5
+    },
+    serviceName: 'hfvn',
+    prestataireId: {
+      _id: new ObjectId('6a01a8d4201aec644fcecaa2'),
+      nom: 'aziz',
+      prenom: 'lou',
+      email: 'azizlouhichi62@gmail.com',
+      telephone: '21655122728'
+    },
+    reservationDateTime: 2026-06-10T01:00:00.000Z,
+    status: 'confirmé',
+    description: 'good ',
+    adresse: 'dfhj',
+    price: 5,
+    images: [
+      'https://res.cloudinary.com/dkkqrkj4a/image/upload/v1780758059/daycare-app/cbryfwtervf4ahkonfzc.jpg'
+    ],
+    paymentStatus: 'non facturé',
+    additionalServices: [],
+    createdAt: 2026-06-06T15:00:59.174Z,
+    __v: 0
+  }
+]
+Authenticated user: utilisateur (6a01a514201aec644fceca98)
+Erreur lors de la récupération des catégories populaires: TypeError: Class constructor ObjectId cannot be invoked without 'new'
+    at getUserTopCategories (C:\Users\azizl\gkid\home_services_back\routes\recommendation.js:19:42)
+    at C:\Users\azizl\gkid\home_services_back\routes\recommendation.js:114:31
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+Erreur avec le service de similarité: connect ECONNREFUSED 192.168.1.8:5000
+🔌  User 6a01a8d4201aec644fcecaa2 disconnected
+User qPITW4u4BzWLkhg_AAAD disconnected
+Authenticated user: utilisateur (6a01a514201aec644fceca98)
+✅  New socket connected: C4IHQt7Exf3A-UhzAAAF
+New client connected:  C4IHQt7Exf3A-UhzAAAF
+Authenticated user: utilisateur (6a01a514201aec644fceca98)
+Authenticated user: utilisateur (6a01a514201aec644fceca98)
+Socket C4IHQt7Exf3A-UhzAAAF joined user_6a01a514201aec644fceca98
+Socket C4IHQt7Exf3A-UhzAAAF joined user_users
+Socket C4IHQt7Exf3A-UhzAAAF joined user_notifications_6a01a514201aec644fceca98
+Authenticated user: utilisateur (6a01a514201aec644fceca98)
+Authenticated user: utilisateur (6a01a514201aec644fceca98)
+Authenticated user: utilisateur (6a01a514201aec644fceca98)
+Connecting prestataire 6a01a8d4201aec644fcecaa2 to socket room
+Socket.io instance obtained: success
+Socket event 'prestataireLoggedIn' emitted for prestataire 6a01a8d4201aec644fcecaa2
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Finding user with ID: 6a01a8d4201aec644fcecaa2
+🔌  User users disconnected
+User C4IHQt7Exf3A-UhzAAAF disconnected
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+✅  New socket connected: eOsy9c0pqx1xe0tVAAAH
+New client connected:  eOsy9c0pqx1xe0tVAAAH
+Socket eOsy9c0pqx1xe0tVAAAH joined user_6a01a8d4201aec644fcecaa2
+Socket eOsy9c0pqx1xe0tVAAAH joined user_providers
+Socket eOsy9c0pqx1xe0tVAAAH joined user_notifications_6a01a8d4201aec644fcecaa2
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Provider verified: 6a01a8d4201aec644fcecaa2
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Provider verified: 6a01a8d4201aec644fcecaa2
+User 6a01a514201aec644fceca98 logged in successfully
+Attempting socket connection for user 6a01a514201aec644fceca98
+Socket.io instance obtained: success
+Socket event emitted for user 6a01a514201aec644fceca98
+Authenticated user: utilisateur (6a01a514201aec644fceca98)
+Finding user with ID: 6a01a514201aec644fceca98
+User reservations before populate: [ new ObjectId('6a24362b16a681e1f11becf6') ]
+User reservations after populate: [
+  {
+    _id: new ObjectId('6a24362b16a681e1f11becf6'),
+    userId: new ObjectId('6a01a514201aec644fceca98'),
+    serviceId: {
+      _id: new ObjectId('6a0f921ff017af66fbca2bc9'),
+      name: 'hfvn',
+      description: '5tecb',
+      price: 5
+    },
+    serviceName: 'hfvn',
+    prestataireId: {
+      _id: new ObjectId('6a01a8d4201aec644fcecaa2'),
+      nom: 'aziz',
+      prenom: 'lou',
+      email: 'azizlouhichi62@gmail.com',
+      telephone: '21655122728'
+    },
+    reservationDateTime: 2026-06-10T01:00:00.000Z,
+    status: 'terminé',
+    description: 'good ',
+    adresse: 'dfhj',
+    price: 5,
+    images: [
+      'https://res.cloudinary.com/dkkqrkj4a/image/upload/v1780758059/daycare-app/cbryfwtervf4ahkonfzc.jpg'
+    ],
+    paymentStatus: 'facturé',
+    additionalServices: [],
+    createdAt: 2026-06-06T15:00:59.174Z,
+    __v: 0,
+    finalPrice: 5,
+    workHours: 1,
+    invoiceId: new ObjectId('6a24371416a681e1f11bedb1')
+  }
+]
+Authenticated user: utilisateur (6a01a514201aec644fceca98)
+Finding user with ID: 6a01a514201aec644fceca98
+User reservations before populate: [ new ObjectId('6a24362b16a681e1f11becf6') ]
+User reservations after populate: [
+  {
+    _id: new ObjectId('6a24362b16a681e1f11becf6'),
+    userId: new ObjectId('6a01a514201aec644fceca98'),
+    serviceId: {
+      _id: new ObjectId('6a0f921ff017af66fbca2bc9'),
+      name: 'hfvn',
+      description: '5tecb',
+      price: 5
+    },
+    serviceName: 'hfvn',
+    prestataireId: {
+      _id: new ObjectId('6a01a8d4201aec644fcecaa2'),
+      nom: 'aziz',
+      prenom: 'lou',
+      email: 'azizlouhichi62@gmail.com',
+      telephone: '21655122728'
+    },
+    reservationDateTime: 2026-06-10T01:00:00.000Z,
+    status: 'terminé',
+    description: 'good ',
+    adresse: 'dfhj',
+    price: 5,
+    images: [
+      'https://res.cloudinary.com/dkkqrkj4a/image/upload/v1780758059/daycare-app/cbryfwtervf4ahkonfzc.jpg'
+    ],
+    paymentStatus: 'facturé',
+    additionalServices: [],
+    createdAt: 2026-06-06T15:00:59.174Z,
+    __v: 0,
+    finalPrice: 5,
+    workHours: 1,
+    invoiceId: new ObjectId('6a24371416a681e1f11bedb1')
+  }
+]
+Authenticated user: utilisateur (6a01a514201aec644fceca98)
+Erreur lors de la récupération des catégories populaires: TypeError: Class constructor ObjectId cannot be invoked without 'new'
+    at getUserTopCategories (C:\Users\azizl\gkid\home_services_back\routes\recommendation.js:19:42)
+    at C:\Users\azizl\gkid\home_services_back\routes\recommendation.js:114:31
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+Erreur avec le service de similarité: connect ECONNREFUSED 192.168.1.8:5000
+🔌  User providers disconnected
+User eOsy9c0pqx1xe0tVAAAH disconnected
+✅  New socket connected: bilZ8wmUUnO2OoRSAAAJ
+New client connected:  bilZ8wmUUnO2OoRSAAAJ
+Socket bilZ8wmUUnO2OoRSAAAJ joined user_6a01a514201aec644fceca98
+Socket bilZ8wmUUnO2OoRSAAAJ joined user_users
+Socket bilZ8wmUUnO2OoRSAAAJ joined user_notifications_6a01a514201aec644fceca98
+Authenticated user: utilisateur (6a01a514201aec644fceca98)
+Authenticated user: utilisateur (6a01a514201aec644fceca98)
+Authenticated user: utilisateur (6a01a514201aec644fceca98)
+Authenticated user: utilisateur (6a01a514201aec644fceca98)
+Authenticated user: utilisateur (6a01a514201aec644fceca98)
+Authenticated user: utilisateur (6a01a514201aec644fceca98)
+Authenticated user: utilisateur (6a01a514201aec644fceca98)
+Connecting prestataire 6a01a8d4201aec644fcecaa2 to socket room
+Socket.io instance obtained: success
+Socket event 'prestataireLoggedIn' emitted for prestataire 6a01a8d4201aec644fcecaa2
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Finding user with ID: 6a01a8d4201aec644fcecaa2
+🔌  User notifications_6a01a514201aec644fceca98 disconnected
+User bilZ8wmUUnO2OoRSAAAJ disconnected
+✅  New socket connected: lRaHS5LVG7GWmXZTAAAL
+New client connected:  lRaHS5LVG7GWmXZTAAAL
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Socket lRaHS5LVG7GWmXZTAAAL joined user_6a01a8d4201aec644fcecaa2
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Socket lRaHS5LVG7GWmXZTAAAL joined user_providers
+Socket lRaHS5LVG7GWmXZTAAAL joined user_notifications_6a01a8d4201aec644fcecaa2
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Provider verified: 6a01a8d4201aec644fcecaa2
+User 6a01a514201aec644fceca98 logged in successfully
+Attempting socket connection for user 6a01a514201aec644fceca98
+Socket.io instance obtained: success
+Socket event emitted for user 6a01a514201aec644fceca98
+Authenticated user: utilisateur (6a01a514201aec644fceca98)
+Finding user with ID: 6a01a514201aec644fceca98
+User reservations before populate: [ new ObjectId('6a24362b16a681e1f11becf6') ]
+User reservations after populate: [
+  {
+    _id: new ObjectId('6a24362b16a681e1f11becf6'),
+    userId: new ObjectId('6a01a514201aec644fceca98'),
+    serviceId: {
+      _id: new ObjectId('6a0f921ff017af66fbca2bc9'),
+      name: 'hfvn',
+      description: '5tecb',
+      price: 5
+    },
+    serviceName: 'hfvn',
+    prestataireId: {
+      _id: new ObjectId('6a01a8d4201aec644fcecaa2'),
+      nom: 'aziz',
+      prenom: 'lou',
+      email: 'azizlouhichi62@gmail.com',
+      telephone: '21655122728'
+    },
+    reservationDateTime: 2026-06-10T01:00:00.000Z,
+    status: 'terminé',
+    description: 'good ',
+    adresse: 'dfhj',
+    price: 5,
+    images: [
+      'https://res.cloudinary.com/dkkqrkj4a/image/upload/v1780758059/daycare-app/cbryfwtervf4ahkonfzc.jpg'
+    ],
+    paymentStatus: 'facturé',
+    additionalServices: [],
+    createdAt: 2026-06-06T15:00:59.174Z,
+    __v: 0,
+    finalPrice: 5,
+    workHours: 1,
+    invoiceId: new ObjectId('6a24371416a681e1f11bedb1')
+  }
+]
+Authenticated user: utilisateur (6a01a514201aec644fceca98)
+Finding user with ID: 6a01a514201aec644fceca98
+User reservations before populate: [ new ObjectId('6a24362b16a681e1f11becf6') ]
+User reservations after populate: [
+  {
+    _id: new ObjectId('6a24362b16a681e1f11becf6'),
+    userId: new ObjectId('6a01a514201aec644fceca98'),
+    serviceId: {
+      _id: new ObjectId('6a0f921ff017af66fbca2bc9'),
+      name: 'hfvn',
+      description: '5tecb',
+      price: 5
+    },
+    serviceName: 'hfvn',
+    prestataireId: {
+      _id: new ObjectId('6a01a8d4201aec644fcecaa2'),
+      nom: 'aziz',
+      prenom: 'lou',
+      email: 'azizlouhichi62@gmail.com',
+      telephone: '21655122728'
+    },
+    reservationDateTime: 2026-06-10T01:00:00.000Z,
+    status: 'terminé',
+    description: 'good ',
+    adresse: 'dfhj',
+    price: 5,
+    images: [
+      'https://res.cloudinary.com/dkkqrkj4a/image/upload/v1780758059/daycare-app/cbryfwtervf4ahkonfzc.jpg'
+    ],
+    paymentStatus: 'facturé',
+    additionalServices: [],
+    createdAt: 2026-06-06T15:00:59.174Z,
+    __v: 0,
+    finalPrice: 5,
+    workHours: 1,
+    invoiceId: new ObjectId('6a24371416a681e1f11bedb1')
+  }
+]
+Authenticated user: utilisateur (6a01a514201aec644fceca98)
+Erreur lors de la récupération des catégories populaires: TypeError: Class constructor ObjectId cannot be invoked without 'new'
+    at getUserTopCategories (C:\Users\azizl\gkid\home_services_back\routes\recommendation.js:19:42)
+    at C:\Users\azizl\gkid\home_services_back\routes\recommendation.js:114:31
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+🔌  User notifications_6a01a8d4201aec644fcecaa2 disconnected
+User lRaHS5LVG7GWmXZTAAAL disconnected
+✅  New socket connected: MFXM-QVimVuWOv_uAAAN
+New client connected:  MFXM-QVimVuWOv_uAAAN
+Authenticated user: utilisateur (6a01a514201aec644fceca98)
+Socket MFXM-QVimVuWOv_uAAAN joined user_6a01a514201aec644fceca98
+Authenticated user: utilisateur (6a01a514201aec644fceca98)
+Authenticated user: utilisateur (6a01a514201aec644fceca98)
+Socket MFXM-QVimVuWOv_uAAAN joined user_users
+Socket MFXM-QVimVuWOv_uAAAN joined user_notifications_6a01a514201aec644fceca98
+Erreur avec le service de similarité: connect ECONNREFUSED 192.168.1.8:5000
+Authenticated user: utilisateur (6a01a514201aec644fceca98)
+Authenticated user: utilisateur (6a01a514201aec644fceca98)
+Erreur lors de la récupération des catégories populaires: TypeError: Class constructor ObjectId cannot be invoked without 'new'
+    at getUserTopCategories (C:\Users\azizl\gkid\home_services_back\routes\recommendation.js:19:42)
+    at C:\Users\azizl\gkid\home_services_back\routes\recommendation.js:114:31
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+Erreur avec le service de similarité: connect ECONNREFUSED 192.168.1.8:5000
+Connecting prestataire 6a01a8d4201aec644fcecaa2 to socket room
+Socket.io instance obtained: success
+Socket event 'prestataireLoggedIn' emitted for prestataire 6a01a8d4201aec644fcecaa2
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Finding user with ID: 6a01a8d4201aec644fcecaa2
+🔌  User 6a01a514201aec644fceca98 disconnected
+User MFXM-QVimVuWOv_uAAAN disconnected
+✅  New socket connected: 2DhTush7NULatNq6AAAP
+New client connected:  2DhTush7NULatNq6AAAP
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Socket 2DhTush7NULatNq6AAAP joined user_6a01a8d4201aec644fcecaa2
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Socket 2DhTush7NULatNq6AAAP joined user_providers
+Socket 2DhTush7NULatNq6AAAP joined user_notifications_6a01a8d4201aec644fcecaa2
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+🔌  User 6a01a8d4201aec644fcecaa2 disconnected
+User 2DhTush7NULatNq6AAAP disconnected
+✅  New socket connected: dycVQDYjMaa6rg1lAAAR
+New client connected:  dycVQDYjMaa6rg1lAAAR
+Socket dycVQDYjMaa6rg1lAAAR joined user_6a01a8d4201aec644fcecaa2
+Socket dycVQDYjMaa6rg1lAAAR joined user_providers
+Socket dycVQDYjMaa6rg1lAAAR joined user_notifications_6a01a8d4201aec644fcecaa2
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Finding user with ID: 6a01a8d4201aec644fcecaa2
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Provider verified: 6a01a8d4201aec644fcecaa2
+User 6a01a514201aec644fceca98 logged in successfully
+Attempting socket connection for user 6a01a514201aec644fceca98
+Socket.io instance obtained: success
+Socket event emitted for user 6a01a514201aec644fceca98
+Authenticated user: utilisateur (6a01a514201aec644fceca98)
+Finding user with ID: 6a01a514201aec644fceca98
+User reservations before populate: [ new ObjectId('6a24362b16a681e1f11becf6') ]
+User reservations after populate: [
+  {
+    _id: new ObjectId('6a24362b16a681e1f11becf6'),
+    userId: new ObjectId('6a01a514201aec644fceca98'),
+    serviceId: {
+      _id: new ObjectId('6a0f921ff017af66fbca2bc9'),
+      name: 'hfvn',
+      description: '5tecb',
+      price: 5
+    },
+    serviceName: 'hfvn',
+    prestataireId: {
+      _id: new ObjectId('6a01a8d4201aec644fcecaa2'),
+      nom: 'aziz',
+      prenom: 'lou',
+      email: 'azizlouhichi62@gmail.com',
+      telephone: '21655122728'
+    },
+    reservationDateTime: 2026-06-10T01:00:00.000Z,
+    status: 'terminé',
+    description: 'good ',
+    adresse: 'dfhj',
+    price: 5,
+    images: [
+      'https://res.cloudinary.com/dkkqrkj4a/image/upload/v1780758059/daycare-app/cbryfwtervf4ahkonfzc.jpg'
+    ],
+    paymentStatus: 'facturé',
+    additionalServices: [],
+    createdAt: 2026-06-06T15:00:59.174Z,
+    __v: 0,
+    finalPrice: 5,
+    workHours: 1,
+    invoiceId: new ObjectId('6a24371416a681e1f11bedb1')
+  }
+]
+Authenticated user: utilisateur (6a01a514201aec644fceca98)
+Erreur lors de la récupération des catégories populaires: TypeError: Class constructor ObjectId cannot be invoked without 'new'
+    at getUserTopCategories (C:\Users\azizl\gkid\home_services_back\routes\recommendation.js:19:42)
+    at C:\Users\azizl\gkid\home_services_back\routes\recommendation.js:114:31
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+Erreur avec le service de similarité: connect ECONNREFUSED 192.168.1.8:5000
+🔌  User providers disconnected
+User dycVQDYjMaa6rg1lAAAR disconnected
+✅  New socket connected: V3BvDCXmWRqRyHAJAAAT
+New client connected:  V3BvDCXmWRqRyHAJAAAT
+Socket V3BvDCXmWRqRyHAJAAAT joined user_6a01a514201aec644fceca98
+Authenticated user: utilisateur (6a01a514201aec644fceca98)
+Socket V3BvDCXmWRqRyHAJAAAT joined user_users
+Socket V3BvDCXmWRqRyHAJAAAT joined user_notifications_6a01a514201aec644fceca98
+Authenticated user: utilisateur (6a01a514201aec644fceca98)
+Authenticated user: utilisateur (6a01a514201aec644fceca98)
+Authenticated user: utilisateur (6a01a514201aec644fceca98)
+Authenticated user: utilisateur (6a01a514201aec644fceca98)
+Authenticated user: utilisateur (6a01a514201aec644fceca98)
+Authenticated user: utilisateur (6a01a514201aec644fceca98)
+Authenticated user: utilisateur (6a01a514201aec644fceca98)
+Authenticated user: utilisateur (6a01a514201aec644fceca98)
+Authenticated user: utilisateur (6a01a514201aec644fceca98)
+Authenticated user: utilisateur (6a01a514201aec644fceca98)
+Authenticated user: utilisateur (6a01a514201aec644fceca98)
+Connecting prestataire 6a01a8d4201aec644fcecaa2 to socket room
+Socket.io instance obtained: success
+Socket event 'prestataireLoggedIn' emitted for prestataire 6a01a8d4201aec644fcecaa2
+🔌  User users disconnected
+User V3BvDCXmWRqRyHAJAAAT disconnected
+✅  New socket connected: rxeeGE-lFdpl0mXFAAAV
+New client connected:  rxeeGE-lFdpl0mXFAAAV
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Socket rxeeGE-lFdpl0mXFAAAV joined user_6a01a8d4201aec644fcecaa2
+Socket rxeeGE-lFdpl0mXFAAAV joined user_providers
+Socket rxeeGE-lFdpl0mXFAAAV joined user_notifications_6a01a8d4201aec644fcecaa2
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Authenticated user: prestataire (6a01a8d4201aec644fcecaa2)
+Provider verified: 6a01a8d4201aec644fcecaa2
+Connecting prestataire 69fd06c197c5ac3a23683105 to socket room
+Socket.io instance obtained: success
+Socket event 'prestataireLoggedIn' emitted for prestataire 69fd06c197c5ac3a23683105
+🔌  User notifications_6a01a8d4201aec644fcecaa2 disconnected
+User rxeeGE-lFdpl0mXFAAAV disconnected
+Authenticated user: prestataire (69fd06c197c5ac3a23683105)
+Authenticated user: prestataire (69fd06c197c5ac3a23683105)
+Authenticated user: prestataire (69fd06c197c5ac3a23683105)
+Authenticated user: prestataire (69fd06c197c5ac3a23683105)
+Authenticated user: prestataire (69fd06c197c5ac3a23683105)
+Authenticated user: prestataire (69fd06c197c5ac3a23683105)
+Authenticated user: prestataire (69fd06c197c5ac3a23683105)
+Authenticated user: prestataire (69fd06c197c5ac3a23683105)
+✅  New socket connected: r6nLnjh0O4pKq8VFAAAX
+New client connected:  r6nLnjh0O4pKq8VFAAAX
+Socket r6nLnjh0O4pKq8VFAAAX joined user_69fd06c197c5ac3a23683105
+Socket r6nLnjh0O4pKq8VFAAAX joined user_providers
+Socket r6nLnjh0O4pKq8VFAAAX joined user_notifications_69fd06c197c5ac3a23683105
+Authenticated user: prestataire (69fd06c197c5ac3a23683105)
+Authenticated user: prestataire (69fd06c197c5ac3a23683105)
+Authenticated user: prestataire (69fd06c197c5ac3a23683105)
+Authenticated user: prestataire (69fd06c197c5ac3a23683105)
+Authenticated user: prestataire (69fd06c197c5ac3a23683105)
+Provider verified: 69fd06c197c5ac3a23683105
+User 69fdfbd697c5ac3a2368329f logged in successfully
+Attempting socket connection for user 69fdfbd697c5ac3a2368329f
+Socket.io instance obtained: success
+Socket event emitted for user 69fdfbd697c5ac3a2368329f
+Authenticated user: utilisateur (69fdfbd697c5ac3a2368329f)
+Finding user with ID: 69fdfbd697c5ac3a2368329f
+User reservations before populate: [
+  new ObjectId('69fdfc2a97c5ac3a236832ba'),
+  new ObjectId('6a103f2103d494b2476becfd'),
+  new ObjectId('6a109b4ded429eeb42a925f1')
+]
+User reservations after populate: [
+  {
+    _id: new ObjectId('69fdfc2a97c5ac3a236832ba'),
+    userId: new ObjectId('69fdfbd697c5ac3a2368329f'),
+    serviceId: {
+      _id: new ObjectId('69fdfaea97c5ac3a23683269'),
+      name: 'take care',
+      description: 'hi',
+      price: 20
+    },
+    serviceName: 'take care',
+    prestataireId: {
+      _id: new ObjectId('69fd06c197c5ac3a23683105'),
+      nom: 'Aziz',
+      prenom: 'louhichi',
+      email: 'azizlouhichi81@gmail.com',
+      telephone: '21655122728'
+    },
+    reservationDateTime: 2026-05-10T15:06:00.000Z,
+    status: 'terminé',
+    description: 'hi\n',
+    adresse: 'dghjb',
+    price: 20,
+    images: [
+      'https://res.cloudinary.com/dyadg9qyy/image/upload/v1778252842/daycare-app/cn27wywb2egrzfi0cd03.jpg'
+    ],
+    paymentStatus: 'payé',
+    additionalServices: [],
+    createdAt: 2026-05-08T15:07:22.681Z,
+    __v: 0,
+    finalPrice: 20,
+    workHours: 1,
+    invoiceId: new ObjectId('69fdfd5097c5ac3a23683385')
+  },
+  {
+    _id: new ObjectId('6a103f2103d494b2476becfd'),
+    userId: new ObjectId('69fdfbd697c5ac3a2368329f'),
+    serviceId: {
+      _id: new ObjectId('6a0f921ff017af66fbca2bc9'),
+      name: 'hfvn',
+      description: '5tecb',
+      price: 5
+    },
+    serviceName: 'hfvn',
+    prestataireId: {
+      _id: new ObjectId('6a01a8d4201aec644fcecaa2'),
+      nom: 'aziz',
+      prenom: 'lou',
+      email: 'azizlouhichi62@gmail.com',
+      telephone: '21655122728'
+    },
+    reservationDateTime: 2026-05-22T11:32:00.000Z,
+    status: 'annulé',
+    description: 'welcome ',
+    adresse: 'fjkv',
+    price: 5,
+    images: [
+      'https://res.cloudinary.com/dkkqrkj4a/image/upload/v1779449632/daycare-app/al1dut6htydj50tgt33l.jpg'
+    ],
+    paymentStatus: 'non facturé',
+    additionalServices: [],
+    createdAt: 2026-05-22T11:33:53.386Z,
+    __v: 0
+  },
+  {
+    _id: new ObjectId('6a109b4ded429eeb42a925f1'),
+    userId: new ObjectId('69fdfbd697c5ac3a2368329f'),
+    serviceId: {
+      _id: new ObjectId('6a0f9380f017af66fbca2c02'),
+      name: 'dgh',
+      description: 'fchkkytr5',
+      price: 8
+    },
+    serviceName: 'dgh',
+    prestataireId: {
+      _id: new ObjectId('6a01a8d4201aec644fcecaa2'),
+      nom: 'aziz',
+      prenom: 'lou',
+      email: 'azizlouhichi62@gmail.com',
+      telephone: '21655122728'
+    },
+    reservationDateTime: 2026-05-23T11:05:00.000Z,
+    status: 'terminé',
+    description: 'welcome ',
+    adresse: 'fjkv',
+    price: 8,
+    images: [
+      'https://res.cloudinary.com/dkkqrkj4a/image/upload/v1779473229/daycare-app/ggl1s7jpsuxsficv9pel.jpg'
+    ],
+    paymentStatus: 'facturé',
+    additionalServices: [],
+    createdAt: 2026-05-22T18:07:09.448Z,
+    __v: 0,
+    finalPrice: 8,
+    workHours: 1,
+    invoiceId: new ObjectId('6a109c75ed429eeb42a926b5')
+  }
+]
+Authenticated user: utilisateur (69fdfbd697c5ac3a2368329f)
+Erreur lors de la récupération des catégories populaires: TypeError: Class constructor ObjectId cannot be invoked without 'new'
+    at getUserTopCategories (C:\Users\azizl\gkid\home_services_back\routes\recommendation.js:19:42)
+    at C:\Users\azizl\gkid\home_services_back\routes\recommendation.js:114:31
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+🔌  User providers disconnected
+User r6nLnjh0O4pKq8VFAAAX disconnected
+Authenticated user: utilisateur (69fdfbd697c5ac3a2368329f)
+✅  New socket connected: Km5xOtZMKT-1EGhJAAAZ
+New client connected:  Km5xOtZMKT-1EGhJAAAZ
+Authenticated user: utilisateur (69fdfbd697c5ac3a2368329f)
+Authenticated user: utilisateur (69fdfbd697c5ac3a2368329f)
+Socket Km5xOtZMKT-1EGhJAAAZ joined user_69fdfbd697c5ac3a2368329f
+Socket Km5xOtZMKT-1EGhJAAAZ joined user_users
+Socket Km5xOtZMKT-1EGhJAAAZ joined user_notifications_69fdfbd697c5ac3a2368329f
+Erreur avec le service de similarité: connect ECONNREFUSED 192.168.1.8:5000
+Authenticated user: utilisateur (69fdfbd697c5ac3a2368329f)
+Authenticated user: utilisateur (69fdfbd697c5ac3a2368329f)
+Authenticated user: utilisateur (69fdfbd697c5ac3a2368329f)
+Authenticated user: utilisateur (69fdfbd697c5ac3a2368329f)
+Authenticated user: utilisateur (69fdfbd697c5ac3a2368329f)
+Authenticated user: utilisateur (69fdfbd697c5ac3a2368329f)
+Authenticated user: utilisateur (69fdfbd697c5ac3a2368329f)
+Authenticated user: utilisateur (69fdfbd697c5ac3a2368329f)
+🔌  User 69fdfbd697c5ac3a2368329f disconnected
+User Km5xOtZMKT-1EGhJAAAZ disconnected
+✅  New socket connected: 72HY-eqXKYtFEiPuAAAb
+New client connected:  72HY-eqXKYtFEiPuAAAb
+Socket 72HY-eqXKYtFEiPuAAAb joined user_69fdfbd697c5ac3a2368329f
+Socket 72HY-eqXKYtFEiPuAAAb joined user_users
+Socket 72HY-eqXKYtFEiPuAAAb joined user_notifications_69fdfbd697c5ac3a2368329f
+🔌  User users disconnected
+User 72HY-eqXKYtFEiPuAAAb disconnected
+✅  New socket connected: uyBYF3xJofDT2muJAAAd
+New client connected:  uyBYF3xJofDT2muJAAAd
+Socket uyBYF3xJofDT2muJAAAd joined user_69fdfbd697c5ac3a2368329f
+Socket uyBYF3xJofDT2muJAAAd joined user_users
+Socket uyBYF3xJofDT2muJAAAd joined user_notifications_69fdfbd697c5ac3a2368329f
+🔌  User notifications_69fdfbd697c5ac3a2368329f disconnected
+User uyBYF3xJofDT2muJAAAd disconnected
+✅  New socket connected: fcPHCxzxV2bhnSJCAAAf
+New client connected:  fcPHCxzxV2bhnSJCAAAf
+Socket fcPHCxzxV2bhnSJCAAAf joined user_69fdfbd697c5ac3a2368329f
+Socket fcPHCxzxV2bhnSJCAAAf joined user_users
+Socket fcPHCxzxV2bhnSJCAAAf joined user_notifications_69fdfbd697c5ac3a2368329f
+🔌  User 69fdfbd697c5ac3a2368329f disconnected
+User fcPHCxzxV2bhnSJCAAAf disconnected
+✅  New socket connected: EQxaO7ds_CGPX3tYAAAh
+New client connected:  EQxaO7ds_CGPX3tYAAAh
+Socket EQxaO7ds_CGPX3tYAAAh joined user_69fdfbd697c5ac3a2368329f
+Socket EQxaO7ds_CGPX3tYAAAh joined user_users
+Socket EQxaO7ds_CGPX3tYAAAh joined user_notifications_69fdfbd697c5ac3a2368329f
+🔌  User users disconnected
+User EQxaO7ds_CGPX3tYAAAh disconnected
+✅  New socket connected: kieuDVsSkqTXkL5vAAAj
+New client connected:  kieuDVsSkqTXkL5vAAAj
+Socket kieuDVsSkqTXkL5vAAAj joined user_69fdfbd697c5ac3a2368329f
+Socket kieuDVsSkqTXkL5vAAAj joined user_users
+Socket kieuDVsSkqTXkL5vAAAj joined user_notifications_69fdfbd697c5ac3a2368329f
+🔌  User notifications_69fdfbd697c5ac3a2368329f disconnected
+User kieuDVsSkqTXkL5vAAAj disconnected
+✅  New socket connected: H81UharBeuZRN92iAAAl
+New client connected:  H81UharBeuZRN92iAAAl
+Socket H81UharBeuZRN92iAAAl joined user_69fdfbd697c5ac3a2368329f
+Socket H81UharBeuZRN92iAAAl joined user_users
+Socket H81UharBeuZRN92iAAAl joined user_notifications_69fdfbd697c5ac3a2368329f
+🔌  User 69fdfbd697c5ac3a2368329f disconnected
+User H81UharBeuZRN92iAAAl disconnected
+✅  New socket connected: -f1myuYHcv87Qy7wAAAn
+New client connected:  -f1myuYHcv87Qy7wAAAn
+Socket -f1myuYHcv87Qy7wAAAn joined user_69fdfbd697c5ac3a2368329f
+Socket -f1myuYHcv87Qy7wAAAn joined user_users
+Socket -f1myuYHcv87Qy7wAAAn joined user_notifications_69fdfbd697c5ac3a2368329f
+🔌  User users disconnected
+User -f1myuYHcv87Qy7wAAAn disconnected
+✅  New socket connected: POTgB7IeULCGkhZPAAAp
+New client connected:  POTgB7IeULCGkhZPAAAp
+Socket POTgB7IeULCGkhZPAAAp joined user_69fdfbd697c5ac3a2368329f
+Socket POTgB7IeULCGkhZPAAAp joined user_users
+Socket POTgB7IeULCGkhZPAAAp joined user_notifications_69fdfbd697c5ac3a2368329f
+🔌  User notifications_69fdfbd697c5ac3a2368329f disconnected
+User POTgB7IeULCGkhZPAAAp disconnected
+✅  New socket connected: xqllRgGDN10XeC-yAAAr
+New client connected:  xqllRgGDN10XeC-yAAAr
+Socket xqllRgGDN10XeC-yAAAr joined user_69fdfbd697c5ac3a2368329f
+Authenticated user: utilisateur (69fdfbd697c5ac3a2368329f)
+Erreur lors de la récupération des catégories populaires: TypeError: Class constructor ObjectId cannot be invoked without 'new'
+    at getUserTopCategories (C:\Users\azizl\gkid\home_services_back\routes\recommendation.js:19:42)
+    at C:\Users\azizl\gkid\home_services_back\routes\recommendation.js:114:31
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+Socket xqllRgGDN10XeC-yAAAr joined user_users
+Socket xqllRgGDN10XeC-yAAAr joined user_notifications_69fdfbd697c5ac3a2368329f
+Authenticated user: utilisateur (69fdfbd697c5ac3a2368329f)
+Finding user with ID: 69fdfbd697c5ac3a2368329f
+User reservations before populate: [
+  new ObjectId('69fdfc2a97c5ac3a236832ba'),
+  new ObjectId('6a103f2103d494b2476becfd'),
+  new ObjectId('6a109b4ded429eeb42a925f1')
+]
+User reservations after populate: [
+  {
+    _id: new ObjectId('69fdfc2a97c5ac3a236832ba'),
+    userId: new ObjectId('69fdfbd697c5ac3a2368329f'),
+    serviceId: {
+      _id: new ObjectId('69fdfaea97c5ac3a23683269'),
+      name: 'take care',
+      description: 'hi',
+      price: 20
+    },
+    serviceName: 'take care',
+    prestataireId: {
+      _id: new ObjectId('69fd06c197c5ac3a23683105'),
+      nom: 'Aziz',
+      prenom: 'louhichi',
+      email: 'azizlouhichi81@gmail.com',
+      telephone: '21655122728'
+    },
+    reservationDateTime: 2026-05-10T15:06:00.000Z,
+    status: 'terminé',
+    description: 'hi\n',
+    adresse: 'dghjb',
+    price: 20,
+    images: [
+      'https://res.cloudinary.com/dyadg9qyy/image/upload/v1778252842/daycare-app/cn27wywb2egrzfi0cd03.jpg'
+    ],
+    paymentStatus: 'payé',
+    additionalServices: [],
+    createdAt: 2026-05-08T15:07:22.681Z,
+    __v: 0,
+    finalPrice: 20,
+    workHours: 1,
+    invoiceId: new ObjectId('69fdfd5097c5ac3a23683385')
+  },
+  {
+    _id: new ObjectId('6a103f2103d494b2476becfd'),
+    userId: new ObjectId('69fdfbd697c5ac3a2368329f'),
+    serviceId: {
+      _id: new ObjectId('6a0f921ff017af66fbca2bc9'),
+      name: 'hfvn',
+      description: '5tecb',
+      price: 5
+    },
+    serviceName: 'hfvn',
+    prestataireId: {
+      _id: new ObjectId('6a01a8d4201aec644fcecaa2'),
+      nom: 'aziz',
+      prenom: 'lou',
+      email: 'azizlouhichi62@gmail.com',
+      telephone: '21655122728'
+    },
+    reservationDateTime: 2026-05-22T11:32:00.000Z,
+    status: 'annulé',
+    description: 'welcome ',
+    adresse: 'fjkv',
+    price: 5,
+    images: [
+      'https://res.cloudinary.com/dkkqrkj4a/image/upload/v1779449632/daycare-app/al1dut6htydj50tgt33l.jpg'
+    ],
+    paymentStatus: 'non facturé',
+    additionalServices: [],
+    createdAt: 2026-05-22T11:33:53.386Z,
+    __v: 0
+  },
+  {
+    _id: new ObjectId('6a109b4ded429eeb42a925f1'),
+    userId: new ObjectId('69fdfbd697c5ac3a2368329f'),
+    serviceId: {
+      _id: new ObjectId('6a0f9380f017af66fbca2c02'),
+      name: 'dgh',
+      description: 'fchkkytr5',
+      price: 8
+    },
+    serviceName: 'dgh',
+    prestataireId: {
+      _id: new ObjectId('6a01a8d4201aec644fcecaa2'),
+      nom: 'aziz',
+      prenom: 'lou',
+      email: 'azizlouhichi62@gmail.com',
+      telephone: '21655122728'
+    },
+    reservationDateTime: 2026-05-23T11:05:00.000Z,
+    status: 'terminé',
+    description: 'welcome ',
+    adresse: 'fjkv',
+    price: 8,
+    images: [
+      'https://res.cloudinary.com/dkkqrkj4a/image/upload/v1779473229/daycare-app/ggl1s7jpsuxsficv9pel.jpg'
+    ],
+    paymentStatus: 'facturé',
+    additionalServices: [],
+    createdAt: 2026-05-22T18:07:09.448Z,
+    __v: 0,
+    finalPrice: 8,
+    workHours: 1,
+    invoiceId: new ObjectId('6a109c75ed429eeb42a926b5')
+  }
+]
+Erreur avec le service de similarité: connect ECONNREFUSED 192.168.1.8:5000
+Authenticated user: utilisateur (69fdfbd697c5ac3a2368329f)
+Authenticated user: utilisateur (69fdfbd697c5ac3a2368329f)
+Authenticated user: utilisateur (69fdfbd697c5ac3a2368329f)
+Authenticated user: utilisateur (69fdfbd697c5ac3a2368329f)
+Authenticated user: utilisateur (69fdfbd697c5ac3a2368329f)
+Authenticated user: utilisateur (69fdfbd697c5ac3a2368329f)
+Authenticated user: utilisateur (69fdfbd697c5ac3a2368329f)
+Authenticated user: utilisateur (69fdfbd697c5ac3a2368329f)
+Authenticated user: utilisateur (69fdfbd697c5ac3a2368329f)
+Authenticated user: utilisateur (69fdfbd697c5ac3a2368329f)
+Authenticated user: utilisateur (69fdfbd697c5ac3a2368329f)
+Authenticated user: utilisateur (69fdfbd697c5ac3a2368329f)
+Authenticated user: utilisateur (69fdfbd697c5ac3a2368329f)
+Authenticated user: utilisateur (69fdfbd697c5ac3a2368329f)
+🔌  User 69fdfbd697c5ac3a2368329f disconnected
+User xqllRgGDN10XeC-yAAAr disconnected
+✅  New socket connected: Dcpn-BRGYQ-nRi0qAAAv
+New client connected:  Dcpn-BRGYQ-nRi0qAAAv
+Socket Dcpn-BRGYQ-nRi0qAAAv joined user_69fdfbd697c5ac3a2368329f
+Socket Dcpn-BRGYQ-nRi0qAAAv joined user_users
+Socket Dcpn-BRGYQ-nRi0qAAAv joined user_notifications_69fdfbd697c5ac3a2368329f
