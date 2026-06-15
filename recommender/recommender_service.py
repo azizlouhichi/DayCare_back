@@ -3,13 +3,13 @@ from sentence_transformers import SentenceTransformer, util
 import torch
 import requests
 import json
+import os
 
 app = Flask(__name__)
 
 model = SentenceTransformer('all-MiniLM-L6-v2')
 
-# Endpoint pour récupérer tous les services depuis l'API Node.js
-API_BASE_URL = "http://192.168.1.8:8000/api"  # Ajustez selon votre configuration
+API_BASE_URL = os.environ.get('NODE_API_URL', 'https://daycareback-production.up.railway.app/api')
 
 def get_all_services():
     try:
