@@ -16,7 +16,11 @@ const Reservation = require('./models/reservation');
 const Notification = require('./models/notification');
 
 dotenv.config();
-const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
+
+if (!process.env.STRIPE_SECRET_KEY) {
+  console.error('❌  STRIPE_SECRET_KEY is not set. Stripe features will be unavailable.');
+}
+const stripe = process.env.STRIPE_SECRET_KEY ? Stripe(process.env.STRIPE_SECRET_KEY) : null;
 const app = express();
 
 app.use(helmet());
