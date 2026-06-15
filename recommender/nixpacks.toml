@@ -1,6 +1,6 @@
 [phases.build]
 cmds = [
-  "pip install torch==2.3.1+cpu --index-url https://download.pytorch.org/whl/cpu",
+  "pip install torch==2.5.1+cpu --index-url https://download.pytorch.org/whl/cpu",
   "pip install -r requirements.txt"
 ]
 
