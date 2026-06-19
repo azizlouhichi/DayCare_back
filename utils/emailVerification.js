@@ -1,18 +1,6 @@
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 
-// Create email transporter
-const transporter = nodemailer.createTransport({
-  host: process.env.EMAIL_HOST || 'sandbox.smtp.mailtrap.io',
-  port: parseInt(process.env.EMAIL_PORT || '587'),
-  secure: false,
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
-  },
-  tls: { rejectUnauthorized: false }
-});
-
 // Generate verification token
 const generateVerificationToken = () => {
   return crypto.randomBytes(20).toString('hex');
@@ -20,7 +8,18 @@ const generateVerificationToken = () => {
 
 // Send verification email
 const sendVerificationEmail = async (email, token) => {
-  const verificationUrl = `${process.env.BASE_URL}/api/auth/verify-email?token=${token}`;
+  const transporter = nodemailer.createTransport({
+    host: process.env.EMAIL_HOST || 'smtp.gmail.com',
+    port: parseInt(process.env.EMAIL_PORT || '587'),
+    secure: false,
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS
+    },
+    tls: { rejectUnauthorized: false }
+  });
+
+  const verificationUrl = `${process.env.BASE_URL || 'https://daycareback-production.up.railway.app'}/api/auth/verify-email?token=${token}`;
   
   try {
     await transporter.sendMail({
