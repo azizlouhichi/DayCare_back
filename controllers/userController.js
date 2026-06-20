@@ -3,16 +3,6 @@ const User = require('../models/user');
 const nodemailer = require('nodemailer');
 const { generateVerificationToken, sendVerificationEmail } = require('../utils/emailVerification');
 
-const transporter = nodemailer.createTransport({
-  host: process.env.EMAIL_HOST,
-  port: parseInt(process.env.EMAIL_PORT || '587'),
-  secure: false,
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
-  },
-  tls: { rejectUnauthorized: false }
-});
 
 // Create a new user
 exports.createUser = async (req, res) => {
@@ -224,8 +214,9 @@ exports.forgotPassword = async (req, res) => {
     user.otpExpires = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
     await user.save();
 
-    await transporter.sendMail({
-      from: `"Day Care Services" <${process.env.EMAIL_USER}>`,
+    const resend = new Resend(process.env.RESEND_API_KEY);
+    const { error: emailError } = await resend.emails.send({
+      from: 'Day Care <onboarding@resend.dev>',
       to: email,
       subject: 'Password Reset OTP',
       html: `
@@ -244,6 +235,7 @@ exports.forgotPassword = async (req, res) => {
         </div>
       `
     });
+    if (emailError) throw new Error(emailError.message);
 
     res.status(200).json({ message: 'OTP sent to your email' });
   } catch (error) {
