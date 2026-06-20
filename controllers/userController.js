@@ -1,8 +1,7 @@
 const bcrypt = require('bcrypt');
 const User = require('../models/user');
-const nodemailer = require('nodemailer');
+const { Resend } = require('resend');
 const { generateVerificationToken, sendVerificationEmail } = require('../utils/emailVerification');
-
 
 // Create a new user
 exports.createUser = async (req, res) => {
