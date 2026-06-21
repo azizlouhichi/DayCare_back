@@ -16,11 +16,7 @@ const Reservation = require('./models/reservation');
 const Notification = require('./models/notification');
 
 dotenv.config();
-
-if (!process.env.STRIPE_SECRET_KEY) {
-  console.error('❌  STRIPE_SECRET_KEY is not set. Stripe features will be unavailable.');
-}
-const stripe = process.env.STRIPE_SECRET_KEY ? Stripe(process.env.STRIPE_SECRET_KEY) : null;
+const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 const app = express();
 
 app.use(helmet());
@@ -34,10 +30,24 @@ const authLimiter = rateLimit({
 app.use('/api/auth/login', authLimiter);
 app.use('/api/prestataire/login', authLimiter);
 
+const allowedOrigins = [
+  'http://localhost:3000',
+  'http://localhost:4200',
+  'https://daycaree.netlify.app',
+  process.env.FRONTEND_URL,
+].filter(Boolean);
+
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
 }));
 
 // HTTP server
