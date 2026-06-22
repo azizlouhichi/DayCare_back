@@ -25,37 +25,37 @@ const JWT_EXPIRATION = process.env.JWT_EXPIRATION || '60m';
 exports.register = async (req, res) => {
   console.log('register function called');
   try {
-    const { email, motDePasse, type, nom, prenom, telephone, adresse, ville, codePostal, pays, description,choixRole } = req.body;
-    
-    
+    const { email, motDePasse, type, nom, prenom, telephone, adresse, ville, codePostal, pays, description, choixRole } = req.body;
+
+
     if (!email || !motDePasse || !type || !nom || !prenom || !telephone || !adresse || !ville || !codePostal || !pays || !description || !choixRole) {
       return res.status(400).json({ error: 'All fields are required' });
     }
-    
-    
+
+
     if (!/^\+?\d{8,15}$/.test(telephone)) {
       return res.status(400).json({ error: 'Phone number must be 11 digits' });
     }
-    
-   
+
+
     if (!/^\d{4}$/.test(codePostal)) {
       return res.status(400).json({ error: 'Postal code must be 4 digits' });
     }
-    
-   
+
+
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return res.status(400).json({ error: 'Invalid email format' });
     }
-    
+
     if (!req.files || !req.files['photoProfil']) {
       return res.status(400).json({ error: 'Profile photo is required' });
     }
-    
-    
+
+
     if (type === 'individual' && !req.files['documentIdentite']) {
       return res.status(400).json({ error: 'Identity document is required for individual prestataires' });
     }
-    
+
     if (type === 'entreprise' && !req.files['documentEntreprise']) {
       return res.status(400).json({ error: 'Company document is required for enterprise prestataires' });
     }
@@ -63,9 +63,10 @@ exports.register = async (req, res) => {
     if (existingPrestataire) {
       return res.status(400).json({ error: 'Email already in use' });
     }
+    const autoVerify = process.env.AUTO_VERIFY_EMAIL === 'true';
     const hashedPassword = await bcrypt.hash(motDePasse, 10);
-    const verificationToken = generateVerificationToken();
-    const prestataire = new Prestataire({ 
+    const verificationToken = autoVerify ? undefined : generateVerificationToken();
+    const prestataire = new Prestataire({
       email,
       motDePasse: hashedPassword,
       type,
@@ -79,7 +80,7 @@ exports.register = async (req, res) => {
       choixRole,
       description,
       verificationToken,
-      isVerified: false,
+      isVerified: autoVerify,
       photoProfil: req.files['photoProfil'][0].path,
       documentIdentite: type === 'individual' ? req.files['documentIdentite'][0].path : null,
       documentEntreprise: type === 'entreprise' ? req.files['documentEntreprise'][0].path : null,
@@ -87,16 +88,18 @@ exports.register = async (req, res) => {
       subscriptionStatus: 'cancel'
     });
     await prestataire.save();
-    try {
-      await sendVerificationEmail(email, verificationToken);
-      console.log(`Verification email sent to ${email}`);
-    } catch (emailError) {
-      console.error('Failed to send verification email:', emailError);
-      return res.status(500).json({ 
-        error: 'Registration successful but failed to send verification email. Please contact support.' 
-      });
+    if (!autoVerify) {
+      try {
+        await sendVerificationEmail(email, verificationToken);
+        console.log(`Verification email sent to ${email}`);
+      } catch (emailError) {
+        console.error('Failed to send verification email:', emailError);
+        return res.status(500).json({
+          error: 'Registration successful but failed to send verification email. Please contact support.'
+        });
+      }
     }
-    res.status(201).json({ message: 'Registration successful. Please check your email to verify your account.',data:prestataire  });
+    res.status(201).json({ message: 'Registration successful. Please check your email to verify your account.', data: prestataire });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -136,14 +139,14 @@ exports.login = async (req, res) => {
     console.log(`Connecting prestataire ${prestataire._id} to socket room`);
     const socketIO = getIO();
     console.log(`Socket.io instance obtained: ${socketIO ? 'success' : 'failed'}`);
-    socketIO.to(`prestataire_${prestataire._id}`).emit('prestataireLoggedIn', { 
+    socketIO.to(`prestataire_${prestataire._id}`).emit('prestataireLoggedIn', {
       prestataireId: prestataire._id,
       unreadNotifications: unreadNotifications
     });
     console.log(`Socket event 'prestataireLoggedIn' emitted for prestataire ${prestataire._id}`);
 
-    res.status(200).json({ 
-      accessToken, 
+    res.status(200).json({
+      accessToken,
       refreshToken,
       unreadNotifications
     });
@@ -168,7 +171,7 @@ exports.getPrestataireById = async (req, res) => {
     const prestataire = await Prestataire.findById(req.params.id);
     if (!prestataire) {
       return res.status(404).json({ error: 'Prestataire not found' });
-      }
+    }
     res.status(200).json({
       ...prestataire.toObject(),
       subscriptionStatus: prestataire.subscriptionStatus
@@ -181,27 +184,27 @@ exports.getPrestataireById = async (req, res) => {
 exports.updateProfile = async (req, res) => {
   try {
     const prestataireId = req.params.id;
-    
+
     // Check if prestataire exists
     const prestataire = await Prestataire.findById(prestataireId);
     if (!prestataire) {
       return res.status(404).json({ error: 'Prestataire not found' });
     }
-    
-    
-    const { 
-      nom, 
-      prenom, 
-      email, 
-      adresse, 
-      telephone, 
-      ville, 
-      codePostal, 
-      pays, 
-      description 
+
+
+    const {
+      nom,
+      prenom,
+      email,
+      adresse,
+      telephone,
+      ville,
+      codePostal,
+      pays,
+      description
     } = req.body;
-    
-    
+
+
     const updateData = {};
     if (nom) updateData.nom = nom;
     if (prenom) updateData.prenom = prenom;
@@ -212,19 +215,19 @@ exports.updateProfile = async (req, res) => {
     if (codePostal) updateData.codePostal = codePostal;
     if (pays) updateData.pays = pays;
     if (description) updateData.description = description;
-    
-    
+
+
     if (req.file) {
       updateData.photoProfil = req.file.path;
     }
-    
-    
+
+
     const updatedPrestataire = await Prestataire.findByIdAndUpdate(
       prestataireId,
       updateData,
       { new: true, runValidators: true }
     );
-    
+
     res.status(200).json({
       message: 'Profile updated successfully',
       prestataire: updatedPrestataire
@@ -294,7 +297,7 @@ exports.addService = async (req, res) => {
       availability
     } = req.body;
 
-    
+
     if (!name || !description || !price) {
       return res.status(400).json({ error: 'Service name, description, and price are required' });
     }
@@ -304,14 +307,14 @@ exports.addService = async (req, res) => {
     let categoryId, subCategoryId;
     let pendingCategoryCreation = false;
 
-    
+
     if (newCategory) {
       const existingCategory = await Category.findOne({ name: newCategory.name });
       if (existingCategory) {
         return res.status(400).json({ error: 'Category already exists' });
       }
 
-      
+
       const newCategoryDoc = new Category({
         name: newCategory.name,
         description: newCategory.description,
@@ -323,34 +326,34 @@ exports.addService = async (req, res) => {
       categoryId = newCategoryDoc._id;
       pendingCategoryCreation = true;
 
-      
+
       if (!newSubCategory) {
         return res.status(400).json({ error: 'A new subcategory must be provided when creating a new category' });
       }
 
-  
+
       const existingSubCategory = await SubCategory.findOne({ name: newSubCategory.name, category: categoryId });
       if (existingSubCategory) {
         return res.status(400).json({ error: 'Subcategory already exists in this category' });
       }
 
-      
+
       const newSubCategoryDoc = new SubCategory({
         name: newSubCategory.name,
         description: newSubCategory.description,
-        category: categoryId, 
+        category: categoryId,
         services: []
       });
       await newSubCategoryDoc.save();
       subCategoryId = newSubCategoryDoc._id;
 
-      
+
       await Category.findByIdAndUpdate(
         categoryId,
         { $push: { subCategories: newSubCategoryDoc._id } }
       );
 
-      
+
       const admin = await Admin.findOne({ role: 'Admin' });
       const categoryNotification = new Notification({
         recipient: admin._id,
@@ -362,19 +365,19 @@ exports.addService = async (req, res) => {
       });
       await categoryNotification.save();
     } else {
-      
+
       if (newSubCategory) {
-        
+
         if (!category) {
           return res.status(400).json({ error: 'Category ID is required when adding a new subcategory' });
         }
-        
+
         const existingCategory = await Category.findById(category);
         if (!existingCategory) {
           return res.status(400).json({ error: 'Category must exist to add a new subcategory' });
         }
-        
-        
+
+
         categoryId = existingCategory._id;
 
         // Check if subcategory already exists
@@ -383,24 +386,24 @@ exports.addService = async (req, res) => {
           return res.status(400).json({ error: 'Subcategory already exists in this category' });
         }
 
-        
+
         const newSubCategoryDoc = new SubCategory({
           name: newSubCategory.name,
           description: newSubCategory.description,
-          category: categoryId, 
+          category: categoryId,
           services: []
         });
         await newSubCategoryDoc.save();
         subCategoryId = newSubCategoryDoc._id;
         pendingCategoryCreation = true;
 
-       
+
         await Category.findByIdAndUpdate(
           categoryId,
           { $push: { subCategories: newSubCategoryDoc._id } }
         );
 
-        
+
         const admin = await Admin.findOne({ role: 'Admin' });
         const subCategoryNotification = new Notification({
           recipient: admin._id,
@@ -427,11 +430,11 @@ exports.addService = async (req, res) => {
       return res.status(400).json({ error: 'Invalid prestataire ID' });
     }
 
-    
+
     console.log('Creating service with categoryId:', categoryId);
     console.log('Creating service with subCategoryId:', subCategoryId);
 
-    
+
     const service = new Service({
       name,
       description,
@@ -453,13 +456,13 @@ exports.addService = async (req, res) => {
 
     await service.save();
 
-    
+
     const prestataireNotification = new Notification({
       recipient: prestataireId,
       recipientType: 'Prestataire',
       type: 'SYSTEM',
       title: pendingCategoryCreation ? 'Service Pending Category Approval' : 'Service Created',
-      message: pendingCategoryCreation 
+      message: pendingCategoryCreation
         ? 'Your service has been created but is pending category/subcategory approval'
         : 'Your service has been created successfully',
       data: { serviceId: service._id }
@@ -470,7 +473,7 @@ exports.addService = async (req, res) => {
       service,
       categoryStatus: pendingCategoryCreation ? 'pending' : 'approved',
       serviceStatus: service.status,
-      message: pendingCategoryCreation 
+      message: pendingCategoryCreation
         ? 'Service created and waiting for category/subcategory approval'
         : 'Service created successfully'
     });
@@ -488,12 +491,12 @@ exports.acceptReservation = async (req, res) => {
       return res.status(404).json({ error: 'Reservation not found' });
     }
 
-   
+
     if (reservation.prestataireId.toString() !== req.user.id) {
       return res.status(403).json({ error: 'Not authorized to update this reservation' });
     }
 
-    
+
     reservation.status = 'confirmé';
     await reservation.save();
 
@@ -509,7 +512,7 @@ exports.acceptReservation = async (req, res) => {
 
     await userNotification.save();
     console.log('User notification:', userNotification);
-    
+
     emitNotification(userNotification.recipient, userNotification);
 
     res.status(200).json(reservation);
@@ -526,12 +529,12 @@ exports.declineReservation = async (req, res) => {
       return res.status(404).json({ error: 'Reservation not found' });
     }
 
-    
+
     if (reservation.prestataireId.toString() !== req.user.id) {
       return res.status(403).json({ error: 'Not authorized to update this reservation' });
     }
 
-    
+
     reservation.status = 'annulé';
     await reservation.save();
     const userNotification = new Notification({
@@ -543,9 +546,9 @@ exports.declineReservation = async (req, res) => {
       data: { reservationId: reservation._id }
     });
 
-   await userNotification.save();
+    await userNotification.save();
     console.log('User notification:', userNotification);
-    
+
     emitNotification(userNotification.recipient, userNotification);
 
     res.status(200).json(reservation);
@@ -559,29 +562,29 @@ exports.prepareInvoice = async (req, res) => {
   try {
     const reservation = await Reservation.findById(req.params.id)
       .populate('prestataireId');
-      
+
     if (!reservation) {
       return res.status(404).json({ error: 'Reservation not found' });
     }
-    
-    
+
+
     if (reservation.prestataireId._id.toString() !== req.user.id) {
       return res.status(403).json({ error: 'Not authorized to prepare invoice for this reservation' });
     }
-    
-    
+
+
     if (reservation.status !== 'confirmé') {
       return res.status(400).json({ error: 'Only confirmed reservations can have invoices prepared' });
     }
-    
+
     const prestataire = reservation.prestataireId;
-    
-    
+
+
     const montantTotal = req.body.invoicePreparation?.montantTotal;
     const montantHT = req.body.invoicePreparation?.montantHT;
     const tauxTVA = req.body.invoicePreparation?.tauxTVA;
-    
-    
+
+
     reservation.invoicePreparation = {
       workHours: req.body.workHours || req.body.invoicePreparation?.details?.workHours || 1,
       details: {
@@ -594,59 +597,59 @@ exports.prepareInvoice = async (req, res) => {
       tauxTVA: tauxTVA || (prestataire.type === 'entreprise' ? 20 : 0),
       preparedAt: new Date()
     };
-    
-    
-    let basePrice = reservation.price; 
-    
-   
+
+
+    let basePrice = reservation.price;
+
+
     if (reservation.invoicePreparation.workHours) {
       basePrice = reservation.invoicePreparation.details.tarifHoraire * reservation.invoicePreparation.workHours;
     }
-    
+
     // For enterprise prestataires, add equipment and personnel costs
     if (prestataire.type === 'entreprise') {
       basePrice += reservation.invoicePreparation.details.equipements;
-      basePrice += (reservation.invoicePreparation.details.nombrePersonnel * 
-                    reservation.invoicePreparation.details.coutPersonnel);
+      basePrice += (reservation.invoicePreparation.details.nombrePersonnel *
+        reservation.invoicePreparation.details.coutPersonnel);
     }
-    
-   
+
+
     reservation.invoicePreparation.montantHT = montantHT || basePrice;
-    
-   
+
+
     const tvaAmount = reservation.invoicePreparation.montantHT * reservation.invoicePreparation.tva;
-    
-    
+
+
     reservation.invoicePreparation.montantTotal = montantTotal || (reservation.invoicePreparation.montantHT + tvaAmount);
-    
-    
+
+
     reservation.invoicePreparation.estimatedPrice = reservation.invoicePreparation.montantTotal;
-    
+
     await reservation.save();
-    
+
     const userNotification = new Notification({
       recipient: reservation.userId,
       recipientType: 'User',
       type: 'INVOICE_PREPARED',
       title: 'Invoice Prepared',
       message: `${prestataire.nom} has prepared an invoice for your service. Estimated price: ${reservation.invoicePreparation.montantTotal}`,
-      data: { 
+      data: {
         reservationId: reservation._id,
         estimatedPrice: reservation.invoicePreparation.montantTotal
       }
     });
-    
+
     await userNotification.save();
-    
-    
+
+
     emitNotification(userNotification.recipient, userNotification);
-    
+
     res.status(200).json({
       message: 'Invoice details prepared successfully',
       reservation,
       estimatedPrice: reservation.invoicePreparation.montantTotal
     });
-    
+
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -657,83 +660,83 @@ exports.completeReservation = async (req, res) => {
   try {
     const reservation = await Reservation.findById(req.params.id)
       .populate('prestataireId');
-      
+
     if (!reservation) {
       return res.status(404).json({ error: 'Reservation not found' });
     }
-    
-   
+
+
     if (reservation.prestataireId._id.toString() !== req.user.id) {
       return res.status(403).json({ error: 'Not authorized to complete this reservation' });
     }
-    
-   
+
+
     if (reservation.status !== 'confirmé') {
       return res.status(400).json({ error: 'Only confirmed reservations can be completed' });
     }
-    
-    
+
+
     if (!reservation.price) {
       return res.status(400).json({ error: 'Price is required to complete the reservation' });
     }
-    
+
     const prestataire = reservation.prestataireId;
-    
-    
+
+
     if (prestataire.type === 'entreprise' && !reservation.invoicePreparation) {
-      return res.status(400).json({ 
+      return res.status(400).json({
         error: 'For enterprise prestataires, invoice details must be prepared before completing the reservation',
         message: 'Please use the prepare-invoice endpoint first'
       });
     }
-    
-    
+
+
     let workHours, details, tva, montantHT, montantTotal;
-    
+
     if (reservation.invoicePreparation) {
-      
+
       workHours = reservation.invoicePreparation.workHours;
       details = reservation.invoicePreparation.details;
       tva = reservation.invoicePreparation.tva;
       montantHT = reservation.invoicePreparation.montantHT;
       montantTotal = reservation.invoicePreparation.montantTotal;
     } else {
-      
+
       workHours = req.body.workHours;
       details = req.body.details || {};
       tva = req.body.tva || 0;
-      
-      
+
+
       if (prestataire.type === 'individual' && !workHours) {
         return res.status(400).json({ error: 'Work hours are required to complete the reservation for individual prestataires' });
       }
     }
-    
-    
+
+
     reservation.workHours = workHours || 1;
-    
-    
+
+
     let additionalServicesTotal = 0;
-   
-    const additionalServices = req.body.additionalServices || 
-                          (req.body.invoice && req.body.invoice.additionalServices) || [];
-    
+
+    const additionalServices = req.body.additionalServices ||
+      (req.body.invoice && req.body.invoice.additionalServices) || [];
+
     if (additionalServices && Array.isArray(additionalServices)) {
-    // Map the additionalServices to ensure they have the correct structure
-    reservation.additionalServices = additionalServices.map(service => ({
-    name: service.name,
-    description: service.description || '',
-    price: service.price || service.cost || 0  // Handle both price and cost
-    }));
-    
-    additionalServicesTotal = reservation.additionalServices.reduce(
-    (total, service) => total + (service.price || 0), 0
-    );
+      // Map the additionalServices to ensure they have the correct structure
+      reservation.additionalServices = additionalServices.map(service => ({
+        name: service.name,
+        description: service.description || '',
+        price: service.price || service.cost || 0  // Handle both price and cost
+      }));
+
+      additionalServicesTotal = reservation.additionalServices.reduce(
+        (total, service) => total + (service.price || 0), 0
+      );
     }
-    
+
     // Calculate final price
     let finalPrice;
-    
+
     // Use finalPrice from request if provided
     if (req.body.finalPrice) {
       finalPrice = req.body.finalPrice;
@@ -744,21 +747,21 @@ exports.completeReservation = async (req, res) => {
       // For individual prestataires or backward compatibility
       finalPrice = reservation.price * (workHours || 1) + additionalServicesTotal;
     }
-    
+
     // Set the final price
     reservation.finalPrice = finalPrice;
-    
+
     // Update reservation status
     reservation.status = 'terminé';
     await reservation.save();
-    
+
     // Generate invoice
     let facture = null;
-    
+
     if (prestataire.type === 'entreprise') {
       // Generate invoice number with 'ENT' prefix for enterprise
       const invoiceNumber = `ENT-${Date.now()}`;
-      
+
       // Create facture with prepared details
       // For enterprise prestataires
       // For enterprise prestataires
@@ -783,7 +786,7 @@ exports.completeReservation = async (req, res) => {
         status: 'en attente',
         type: 'enterprise'
       });
-      
+
       await facture.save();
       reservation.invoiceId = facture._id;
       reservation.paymentStatus = 'facturé';
@@ -797,15 +800,15 @@ exports.completeReservation = async (req, res) => {
         message: `Invoice #${invoiceNumber} has been generated for your service with ${prestataire.nom}. Final price: ${finalPrice}`,
         data: { invoiceId: facture._id }
       });
-      
+
       await userNotification.save();
-      
+
       // Emit notification
       emitNotification(userNotification.recipient, userNotification);
     } else {
       // For individual prestataires, create a simple invoice/receipt
       const invoiceNumber = `IND-${Date.now()}`;
-      
+
       facture = new Facture({
         numeroFacture: invoiceNumber,
         reservationId: reservation._id,
@@ -826,15 +829,15 @@ exports.completeReservation = async (req, res) => {
         status: 'en attente',
         type: 'individual'
       });
-      
+
       // After saving the facture
       await facture.save();
-      
+
       // Update the reservation with the invoice reference
       reservation.invoiceId = facture._id;
       reservation.paymentStatus = 'facturé';
       await reservation.save();
-      
+
       // Create notification for individual invoice
       const userNotification = new Notification({
         recipient: reservation.userId,
@@ -844,13 +847,13 @@ exports.completeReservation = async (req, res) => {
         message: `Invoice #${invoiceNumber} has been generated for your service with ${prestataire.nom}. Final price: ${finalPrice.toFixed(2)}`,
         data: { invoiceId: facture._id }
       });
-      
+
       await userNotification.save();
-      
+
       // Emit notification
       emitNotification(userNotification.recipient, userNotification);
-    } 
-    
+    }
+
     // For all prestataires, notify the user of completion
     const userNotification = new Notification({
       recipient: reservation.userId,
@@ -858,24 +861,24 @@ exports.completeReservation = async (req, res) => {
       type: 'SERVICE_COMPLETED',
       title: 'Service Completed',
       message: `Your service with ${prestataire.nom} has been completed. Final price: ${finalPrice.toFixed(2)}`,
-      data: { 
+      data: {
         reservationId: reservation._id,
         invoiceId: facture ? facture._id : null
       }
     });
-    
+
     await userNotification.save();
-    
+
     // Emit completion notification
     emitNotification(userNotification.recipient, userNotification);
-    
+
     res.status(200).json({
       message: 'Reservation completed successfully',
       reservation,
       invoice: facture,
       finalPrice: finalPrice  // Make sure this is included
     });
-    
+
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -885,7 +888,7 @@ exports.completeReservation = async (req, res) => {
 exports.getPrestataireProfile = async (req, res) => {
   try {
     const { id } = req.params;
-    
+
     // Get prestataire details
     const prestataire = await Prestataire.findById(id);
     if (!prestataire) {
@@ -913,14 +916,14 @@ exports.getPrestataireProfile = async (req, res) => {
 exports.logout = async (req, res) => {
   try {
     const { refreshToken } = req.body;
-    
+
     if (!refreshToken) {
       return res.status(400).json({ error: 'Refresh token is required' });
     }
 
     // Find prestataire with the refresh token
     const prestataire = await Prestataire.findOne({ refreshToken });
-    
+
     if (!prestataire) {
       return res.status(404).json({ error: 'Prestataire not found' });
     }
