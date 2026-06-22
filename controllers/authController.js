@@ -11,9 +11,9 @@ const Notification = require('../models/notification');
 
 
 // Secret keys for JWT
-const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET;
-const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET;
-const RESET_TOKEN_SECRET = process.env.RESET_TOKEN_SECRET;
+const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET ;
+const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET ;
+const RESET_TOKEN_SECRET = process.env.RESET_TOKEN_SECRET ;
 const JWT_EXPIRATION = process.env.JWT_EXPIRATION || '60m';
 
 
@@ -33,37 +33,32 @@ const transporter = nodemailer.createTransport({
 exports.register = async (req, res) => {
   try {
     const { email, motDePasse } = req.body;
-
+    
     // Check if user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({ error: 'Email already in use' });
     }
-
+    
     const hashedPassword = await bcrypt.hash(motDePasse, 10);
     const verificationToken = crypto.randomBytes(20).toString('hex');
-    const autoVerify = process.env.AUTO_VERIFY_EMAIL === 'true';
-
-    const user = new User({
-      ...req.body,
+    
+    const user = new User({ 
+      ...req.body, 
       motDePasse: hashedPassword,
-      verificationToken: autoVerify ? undefined : verificationToken,
-      isVerified: autoVerify
+      verificationToken,
+      isVerified: false
     });
-
+    
     if (user.motDePasse === motDePasse || !user.motDePasse.startsWith('$2b$')) {
       throw new Error('Password was not hashed properly');
     }
-
+    
     await user.save();
-
-    if (autoVerify) {
-      return res.status(201).json({ message: 'Registration successful. Your account is verified.' });
-    }
-
+    
     // Send verification email
     const verificationUrl = `${process.env.BASE_URL}/api/auth/verify-email?token=${verificationToken}`;
-
+    
     try {
       await transporter.sendMail({
         from: process.env.EMAIL_USER,
@@ -74,11 +69,11 @@ exports.register = async (req, res) => {
       console.log(`Verification email sent to ${email}`);
     } catch (emailError) {
       console.error('Failed to send verification email:', emailError);
-      return res.status(500).json({
-        error: 'Registration successful but failed to send verification email. Please contact support.'
+      return res.status(500).json({ 
+        error: 'Registration successful but failed to send verification email. Please contact support.' 
       });
     }
-
+    
     res.status(201).json({ message: 'Registration successful. Please check your email to verify your account.' });
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -103,12 +98,12 @@ exports.login = async (req, res) => {
     const isPasswordValid = await bcrypt.compare(motDePasse, user.motDePasse);
     if (!isPasswordValid) return res.status(401).json({ error: 'Invalid password' });
 
-    const accessToken = jwt.sign({
-      userId: user._id,
+    const accessToken = jwt.sign({ 
+      userId: user._id, 
       role: user.choixRole || 'user' // Default to 'user' if choixRole is not set
     }, ACCESS_TOKEN_SECRET, { expiresIn: '60m' });
-    const refreshToken = jwt.sign({
-      userId: user._id,
+    const refreshToken = jwt.sign({ 
+      userId: user._id, 
       role: user.choixRole || 'user' // Default to 'user' if choixRole is not set
     }, REFRESH_TOKEN_SECRET);
 
@@ -123,22 +118,22 @@ exports.login = async (req, res) => {
     }).sort({ createdAt: -1 });
 
     console.log(`User ${user._id} logged in successfully`);
-
+    
     // Debug socket connection
     console.log(`Attempting socket connection for user ${user._id}`);
     const io = getIO(); // Use getIO() to access io safely
     console.log(`Socket.io instance obtained: ${io ? 'success' : 'failed'}`);
-
+    
     // Join the user to a socket room
-    io.to(`user_${user._id}`).emit('userLoggedIn', {
+    io.to(`user_${user._id}`).emit('userLoggedIn', { 
       userId: user._id,
       unreadNotifications: unreadNotifications
     }); // Emit event after user login with notifications
     console.log(`Socket event emitted for user ${user._id}`);
 
-
-    res.status(200).json({
-      accessToken,
+    
+    res.status(200).json({ 
+      accessToken, 
       refreshToken,
       unreadNotifications
     });
@@ -160,7 +155,7 @@ exports.verifyEmail = async (req, res) => {
     user.verificationToken = undefined;
     await user.save();
 
-
+    
     const filePath = path.join(__dirname, '../views/verificationSuccess.html');
     fs.readFile(filePath, 'utf8', (err, data) => {
       if (err) {
@@ -234,23 +229,23 @@ exports.resendVerification = async (req, res) => {
 exports.logout = async (req, res) => {
   try {
     const { refreshToken } = req.body;
-
+    
     if (!refreshToken) {
       return res.status(400).json({ error: 'Refresh token is required' });
     }
 
-
+    
     const user = await User.findOne({ refreshToken });
-
+    
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
 
-
+   
     user.refreshToken = undefined;
     await user.save();
 
-
+    
     const io = getIO();
     if (io) {
       io.to(`user_${user._id}`).emit('userLoggedOut', { userId: user._id });

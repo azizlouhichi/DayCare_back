@@ -6,13 +6,9 @@ const generateVerificationToken = () => {
 };
 
 const sendVerificationEmail = async (email, token) => {
-  const verificationUrl = `${process.env.BASE_URL || 'https://daycareback-production.up.railway.app'}/api/auth/verify-email?token=${token}`;
-  if (process.env.AUTO_VERIFY_EMAIL === 'true') {
-    console.log(`[DEV] Skipping email — verify manually: ${verificationUrl}`);
-    return;
-  }
-
   const resend = new Resend(process.env.RESEND_API_KEY);
+  const verificationUrl = `${process.env.BASE_URL || 'https://daycareback-production.up.railway.app'}/api/auth/verify-email?token=${token}`;
+
   const { error } = await resend.emails.send({
     from: 'Day Care <onboarding@resend.dev>',
     to: email,
