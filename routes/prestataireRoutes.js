@@ -28,6 +28,7 @@ const bodyParser = require('body-parser');
  *         description: Bad request
  */
 router.post('/register', uploadMiddleware.prestataireDocsUpload, prestataireController.register);
+router.get('/verify-email', prestataireController.verifyEmail);
 
 /**
  * @swagger

@@ -22,8 +22,10 @@ const generateVerificationToken = () => {
   return crypto.randomBytes(20).toString('hex');
 };
 
-const sendVerificationEmail = async (email, token) => {
-  const verificationUrl = `${process.env.BASE_URL || 'https://daycareback-production.up.railway.app'}/api/auth/verify-email?token=${token}`;
+const sendVerificationEmail = async (email, token, role = 'user') => {
+  const base = process.env.BASE_URL || 'https://daycareback-production.up.railway.app';
+  const endpoint = role === 'prestataire' ? 'prestataire/verify-email' : 'auth/verify-email';
+  const verificationUrl = `${base}/api/${endpoint}?token=${token}`;
 
   await sendEmail(email, 'Verify Your Email', `
     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 0 auto; border-radius: 12px; overflow: hidden; background: #ffffff; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">

@@ -88,7 +88,7 @@ exports.register = async (req, res) => {
     });
     await prestataire.save();
     try {
-      await sendVerificationEmail(email, verificationToken);
+      await sendVerificationEmail(email, verificationToken, 'prestataire');
       console.log(`Verification email sent to ${email}`);
     } catch (emailError) {
       console.error('Email send failed (account still created):', emailError.message);
@@ -901,6 +901,30 @@ exports.getPrestataireProfile = async (req, res) => {
       prestataire,
       services,
       reservations
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.verifyEmail = async (req, res) => {
+  try {
+    const { token } = req.query;
+    if (!token) return res.status(400).json({ error: 'Verification token is required' });
+
+    const prestataire = await Prestataire.findOne({ verificationToken: token });
+    if (!prestataire) return res.status(404).json({ error: 'Invalid verification token' });
+
+    prestataire.isVerified = true;
+    prestataire.verificationToken = undefined;
+    await prestataire.save();
+
+    const path = require('path');
+    const fs = require('fs');
+    const filePath = path.join(__dirname, '../views/verificationSuccess.html');
+    fs.readFile(filePath, 'utf8', (err, data) => {
+      if (err) return res.status(200).json({ message: 'Email verified successfully' });
+      res.status(200).send(data);
     });
   } catch (error) {
     res.status(500).json({ error: error.message });
