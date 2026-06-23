@@ -1,34 +1,18 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const User = require('../models/user');
-const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 const path = require('path');
 const fs = require('fs');
 const { getIO } = require('../services/io');
 const io = require('../services/io').getIO();
 const Notification = require('../models/notification');
+const { sendVerificationEmail } = require('../utils/emailVerification');
 
-
-// Secret keys for JWT
-const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET ;
-const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET ;
-const RESET_TOKEN_SECRET = process.env.RESET_TOKEN_SECRET ;
+const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET;
+const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET;
+const RESET_TOKEN_SECRET = process.env.RESET_TOKEN_SECRET;
 const JWT_EXPIRATION = process.env.JWT_EXPIRATION || '60m';
-
-
-// Register a new user
-// Create email transporter
-const transporter = nodemailer.createTransport({
-  host: process.env.EMAIL_HOST || 'sandbox.smtp.mailtrap.io',
-  port: parseInt(process.env.EMAIL_PORT || '587'),
-  secure: false,
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
-  },
-  tls: { rejectUnauthorized: false }
-});
 
 exports.register = async (req, res) => {
   try {
@@ -43,37 +27,25 @@ exports.register = async (req, res) => {
     const hashedPassword = await bcrypt.hash(motDePasse, 10);
     const verificationToken = crypto.randomBytes(20).toString('hex');
     
-    const user = new User({ 
-      ...req.body, 
+    const user = new User({
+      ...req.body,
       motDePasse: hashedPassword,
       verificationToken,
       isVerified: false
     });
-    
+
     if (user.motDePasse === motDePasse || !user.motDePasse.startsWith('$2b$')) {
       throw new Error('Password was not hashed properly');
     }
-    
+
     await user.save();
-    
-    // Send verification email
-    const verificationUrl = `${process.env.BASE_URL}/api/auth/verify-email?token=${verificationToken}`;
-    
+
     try {
-      await transporter.sendMail({
-        from: process.env.EMAIL_USER,
-        to: email,
-        subject: 'Verify Your Email',
-        html: `Please click this link to verify your email: <a href="${verificationUrl}">${verificationUrl}</a>`
-      });
-      console.log(`Verification email sent to ${email}`);
+      await sendVerificationEmail(email, verificationToken);
     } catch (emailError) {
-      console.error('Failed to send verification email:', emailError);
-      return res.status(500).json({ 
-        error: 'Registration successful but failed to send verification email. Please contact support.' 
-      });
+      console.error('Email send failed (account still created):', emailError.message);
     }
-    
+
     res.status(201).json({ message: 'Registration successful. Please check your email to verify your account.' });
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -205,18 +177,11 @@ exports.resendVerification = async (req, res) => {
     user.verificationToken = verificationToken;
     await user.save();
 
-    const verificationUrl = `${process.env.BASE_URL}/api/auth/verify-email?token=${verificationToken}`;
-
     try {
-      await transporter.sendMail({
-        from: process.env.EMAIL_USER,
-        to: email,
-        subject: 'Verify Your Email',
-        html: `Please click this link to verify your email: <a href="${verificationUrl}">${verificationUrl}</a>`
-      });
+      await sendVerificationEmail(email, verificationToken);
       console.log(`Verification email resent to ${email}`);
     } catch (emailError) {
-      console.error('Failed to resend verification email:', emailError);
+      console.error('Failed to resend verification email:', emailError.message);
       return res.status(500).json({ error: 'Failed to send verification email. Please try again later.' });
     }
 

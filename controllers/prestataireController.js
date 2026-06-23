@@ -65,7 +65,7 @@ exports.register = async (req, res) => {
     }
     const hashedPassword = await bcrypt.hash(motDePasse, 10);
     const verificationToken = generateVerificationToken();
-    const prestataire = new Prestataire({ 
+    const prestataire = new Prestataire({
       email,
       motDePasse: hashedPassword,
       type,
@@ -91,12 +91,9 @@ exports.register = async (req, res) => {
       await sendVerificationEmail(email, verificationToken);
       console.log(`Verification email sent to ${email}`);
     } catch (emailError) {
-      console.error('Failed to send verification email:', emailError);
-      return res.status(500).json({ 
-        error: 'Registration successful but failed to send verification email. Please contact support.' 
-      });
+      console.error('Email send failed (account still created):', emailError.message);
     }
-    res.status(201).json({ message: 'Registration successful. Please check your email to verify your account.',data:prestataire  });
+    res.status(201).json({ message: 'Registration successful. Please check your email to verify your account.', data: prestataire });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

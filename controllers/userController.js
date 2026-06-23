@@ -1,7 +1,6 @@
 const bcrypt = require('bcrypt');
 const User = require('../models/user');
-const { Resend } = require('resend');
-const { generateVerificationToken, sendVerificationEmail } = require('../utils/emailVerification');
+const { generateVerificationToken, sendVerificationEmail, sendOtpEmail } = require('../utils/emailVerification');
 
 // Create a new user
 exports.createUser = async (req, res) => {
@@ -213,28 +212,7 @@ exports.forgotPassword = async (req, res) => {
     user.otpExpires = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
     await user.save();
 
-    const resend = new Resend(process.env.RESEND_API_KEY);
-    const { error: emailError } = await resend.emails.send({
-      from: 'Day Care <onboarding@resend.dev>',
-      to: email,
-      subject: 'Password Reset OTP',
-      html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 0; border-radius: 12px; overflow: hidden; background: #ffffff; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
-          <div style="background: linear-gradient(135deg, #0474ED, #0258C4); padding: 30px; text-align: center; color: white;">
-            <h1 style="margin: 0; font-size: 26px;">Password Reset</h1>
-            <p style="margin: 10px 0 0; opacity: 0.9;">Day Care Services</p>
-          </div>
-          <div style="padding: 40px; text-align: center;">
-            <p style="color: #555; font-size: 16px; margin-bottom: 24px;">Use the code below to reset your password. It expires in <strong>10 minutes</strong>.</p>
-            <div style="display: inline-block; background: #f0f6ff; border: 2px dashed #0474ED; border-radius: 12px; padding: 20px 40px; margin: 0 auto;">
-              <span style="font-size: 40px; font-weight: bold; letter-spacing: 12px; color: #0474ED;">${otp}</span>
-            </div>
-            <p style="color: #999; font-size: 13px; margin-top: 30px;">If you didn't request this, ignore this email.</p>
-          </div>
-        </div>
-      `
-    });
-    if (emailError) throw new Error(emailError.message);
+    await sendOtpEmail(email, otp);
 
     res.status(200).json({ message: 'OTP sent to your email' });
   } catch (error) {
